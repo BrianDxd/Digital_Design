@@ -26,7 +26,7 @@ always_ff @(posedge clk, posedge rst) begin //add 1 to reg every 1 sec
     if (rst)
     hex_value <= 0;
     else
-    hex_value <= (hex_value == 31) ? 0 : (one_sec_en) ? hex_value + 1 : hex_value;
+    hex_value <= (hex_value == 255) ? 0 : (one_sec_en) ? hex_value + 1 : hex_value;
 end
 
 always_ff @(posedge clk, posedge rst) begin
