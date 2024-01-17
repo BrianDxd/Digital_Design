@@ -15,26 +15,26 @@ Signed Int x Q1.7 = -77 * -0.4609375 = 35.4921875
 
 
 Explanation (relevant pages: 98-101, 108-110)
-    The int values are twos complement numbers.
+The int values are twos complement numbers.
 
-    The main idea of this problem is the same multiplier can be used to multiply different inputs, that are formatted as any combination of signed and unsigned 
+The main idea of this problem is the same multiplier can be used to multiply different inputs, that are formatted as any combination of signed and unsigned 
 int or Q1.7 numbers, and only the interpretation of those values changes. This is done through the extra sign bit that extends the inputs from 8 bits 
 through nine bits. 
 
-    These two nine by nine inputs are then multiplied to give a eightteen bit output.
+These two nine by nine inputs are then multiplied to give a eightteen bit output.
 
-    In the case of int by int, the bottom seven bits can be taken as the answer, as long as the sign bit of the bottom seven bits mult_result[7] is repeated from 
+In the case of int by int, the bottom seven bits can be taken as the answer, as long as the sign bit of the bottom seven bits mult_result[7] is repeated from 
 mult_result[17:8].(page 110) In the case of unsigned int by unsigned int, the mult_result[7] can be 1 or 0, but mult_result[17:8] must be zero. In all cases, this 
 means that the multiplication result didn't overflow or underflow, depending on the sign bit. If overflow/underflow has occured, the output is set the largest positive 
 or smallest negative number, depending on the output format.
 
-    In the case of Q1.7 by Q1.7, the resulting format of the multplication result can be thought of as Q2.14. The bottom 7 bits are the result of the fraction
+In the case of Q1.7 by Q1.7, the resulting format of the multplication result can be thought of as Q2.14. The bottom 7 bits are the result of the fraction
 part of both numbers multiplied together, this means that they are out of our format range. The next 7 bits are the fraction bits of our result, 
 then the next bit is the sign bit. So in the code, mult_result[6:0] represents fractional bits that are outside of our range. 
 One is added to mult_result[6] to round off the number. the next 8 bits are the ones that we want, which is mult_result[14:7]. 
 This, included with the rounding, is seen as mult_result[14:6] + 1 in the code. The mult_result is represented as such, in the case of signed output, with S standing for sign bit, and X being numbers that are too small to worry about, and F being the result of our answer, and R being the bit we add one to to round.
 
-                                                    SSS_SFFFFFFF_RXXXXXXX
+SSS_SFFFFFFF_RXXXXXXX
 
 As before, if the output is unsigned, then the 4th S from the left can be a one or zero, but the top 3 S must be 0. 
 
