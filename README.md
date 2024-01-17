@@ -1,1 +1,1 @@
-University Student learnign digital design
+University Student learning digital design
