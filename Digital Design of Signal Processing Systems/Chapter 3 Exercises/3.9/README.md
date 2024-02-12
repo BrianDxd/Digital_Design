@@ -1,0 +1,2 @@
+ImpulseResponse.txt contains the values generated from the fixed point model in matlab.
+ImpusleResponseRTL.txt contains the values generated from the RTL. These values are compared in the testbench. Paths assume they are all in the same folder. 
